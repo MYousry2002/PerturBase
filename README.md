@@ -42,7 +42,8 @@ Watch this demo [here](www.google.com)
 
 ## Application Structure
 
-```graphql
+```
+
 PERTURBBASE/
 ├── backend/
 │   ├── app.py                      # Main entry point for the Flask application
