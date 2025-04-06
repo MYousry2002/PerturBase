@@ -18,12 +18,7 @@ What is the average mitochondrial content per experiment?
 
 * 📊 Visualizations
 
-View key experiment insights at a glance with:
-	* Bar charts (cells per perturbation type)
-	* Violin plots (QC metrics across experiments)
-	* Heatmaps (metadata completeness)
-	* Pie charts (published vs unpublished datasets)
-	* Boxplots (cell count distribution)
+View key experiment insights at a glance with: Bar charts (cells per perturbation type), Violin plots (QC metrics across experiments), Heatmaps (metadata completeness), Pie charts (published vs unpublished datasets), and Boxplots (cell count distribution)
 
 * 💾 Downloadable Results
   
