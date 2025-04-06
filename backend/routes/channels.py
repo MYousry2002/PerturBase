@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# backend/routes/channels.py
 
 from flask import Blueprint, jsonify, request
 from database.db_utils import get_db_connection
@@ -28,3 +29,15 @@ def get_channel_counts():
     counts = cursor.fetchall()
     conn.close()
     return jsonify(counts)
+
+@channels_bp.route('/experiment/<int:exp_id>', methods=['GET'])
+def get_channels_for_experiment(exp_id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    
+    # Get channel metadata for the experiment
+    cursor.execute("SELECT * FROM ChannelMetaData WHERE ExpID = ?", (exp_id,))
+    channels = cursor.fetchall()
+    conn.close()
+    
+    return jsonify(channels)

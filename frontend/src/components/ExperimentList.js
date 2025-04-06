@@ -1,15 +1,19 @@
+// src/components/ExperimentList.js
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import './ExperimentList.css';
 
-const ExperimentList = () => {
+const ExperimentList = ({ filters }) => {
   const [experiments, setExperiments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Access the "experiments" endpoint
-    api.get('/experiments')
+    // Build query parameters based on filters
+    const queryParams = new URLSearchParams(filters).toString();
+    const endpoint = `/experiments?${queryParams}`;
+    
+    api.get(endpoint)
       .then(response => {
         setExperiments(response.data);
         setLoading(false);
@@ -18,7 +22,7 @@ const ExperimentList = () => {
         setError(err);
         setLoading(false);
       });
-  }, []);
+  }, [filters]);
 
   if (loading) return <p>Loading experiments...</p>;
   if (error) return <p>Error: {error.message}</p>;
