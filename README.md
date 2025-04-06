@@ -12,9 +12,9 @@ Automatically parses .rds files and extracts key cell-level metadata including g
   
 Submit custom queries to explore experiment-level and cell-level metadata, such as:
 
-	* What perturbation types exist in a dataset?
-	* How many cells passed QC per batch?
-	* What is the average mitochondrial content per experiment?
+What perturbation types exist in a dataset?
+How many cells passed QC per batch?
+What is the average mitochondrial content per experiment?
 
 * 📊 Visualizations
 
@@ -30,12 +30,15 @@ View key experiment insights at a glance with:
 Export any metadata query result as a .csv, and download visualization images as .png.
 
 * 🧠 Structured Relational Database
+  
 Uses MariaDB with SQLAlchemy to organize extracted metadata for fast and reliable querying.
 
 * 🌐 User-Friendly Frontend
+  
 Built with React and Axios to provide a seamless, interactive user experience with support for navigation, help pages, and loading states.
 
 * ⚙️ Future Extensibility
+  
 Designed to support more datasets and public deployment via cloud hosting.
 
 ## Usage: 
