@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # tests/test_db_connection.py
 import unittest
 from database.db_utils import get_db_connection

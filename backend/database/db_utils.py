@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import mariadb
 import os
 from dotenv import load_dotenv

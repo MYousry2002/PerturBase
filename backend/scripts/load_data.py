@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pandas as pd
 from database.db_utils import get_db_connection
 

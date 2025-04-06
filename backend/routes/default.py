@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Blueprint
 
 default_bp = Blueprint('default', __name__)
