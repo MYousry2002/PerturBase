@@ -1,6 +1,6 @@
 import React from 'react';
 import ExperimentList from '../components/ExperimentList';
-import './Experiments.css'; // Optional styling for the page
+import './Experiments.css';
 
 const Experiments = () => {
   return (
