@@ -1,26 +1,18 @@
-// src/App.js
-import React, { useEffect, useState } from 'react';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import Help from './pages/Help';
 
 function App() {
-  const [experiments, setExperiments] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:5000/experiments')
-      .then(res => res.json())
-      .then(data => setExperiments(data));
-  }, []);
-
   return (
-    <div className="App">
-      <h1>PerturbBase</h1>
-      <h2>Experiments:</h2>
-      <ul>
-        {experiments.map(exp => (
-          <li key={exp.id}>{exp.name}</li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/help" element={<Help />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -56,6 +56,7 @@ PERTURBBASE/
 │   │   └── schema.sql              # SQL script to create the tables (Experiment, ChannelMetaData, etc.)
 │   ├── routes/                     # API endpoints defined as Blueprints
 │   │   ├── __init__.py             # Registers all route Blueprints
+│   │   ├── default.py              # Default route (e.g., '/') returning "PerturBase API is running."
 │   │   ├── experiments.py          # Endpoints for Experiment-related queries
 │   │   ├── channels.py             # Endpoints for ChannelMetaData and ChannelCounts queries
 │   │   └── raw_counts.py           # Endpoints for RawCounts queries
@@ -66,28 +67,32 @@ PERTURBBASE/
 │
 ├── frontend/
 │   ├── public/
-│   │   └── index.html                 # React root HTML
+│   │   └── index.html              # Root HTML file for the React app
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── ExperimentList.js      # Displays list of experiments
-│   │   │   ├── MetadataQueryForm.js   # Form to search metadata
-│   │   │   └── Visualizations/        # Chart components (bar, heatmap, violin, etc.)
-│   │   ├── pages/
-│   │   │   ├── Home.js                # Landing page
-│   │   │   ├── Dashboard.js           # Metadata summary + visualizations
-│   │   │   └── Help.js                # Docs/help for how to use the tool
-│   │   ├── services/
-│   │   │   └── api.js                 # Axios wrapper for API calls
-│   │   ├── App.js                     # Main React app layout
-│   │   ├── index.js                   # App entry point
-│   │   ├── App.css / index.css        # Styling
-│   │   ├── reportWebVitals.js         # (optional) Web performance tracking
-│   │   └── setupTests.js              # (Optional) for React testing
-│   ├── package.json                   # React dependencies + scripts
-│   └── README.md
+│   │   ├── assets/                 # Static assets (images and global styles)
+│   │   │   ├── images/             # Static images
+│   │   │   └── styles/             # Global CSS files
+│   │   ├── components/             # Reusable React components
+│   │   │   ├── common/             # Common components (e.g., Navbar, Footer)
+│   │   │   ├── forms/              # Form components (e.g., MetadataQueryForm)
+│   │   │   ├── visualizations/     # Chart components (bar charts, heatmaps, etc.)
+│   │   │   └── ExperimentList.js   # Component to display experiments
+│   │   ├── pages/                  # Page components corresponding to app routes
+│   │   │   ├── Home.js             # Landing page
+│   │   │   ├── Dashboard.js        # Metadata summary and visualizations
+│   │   │   └── Help.js             # Help/documentation page
+│   │   ├── services/               # API service modules
+│   │   │   └── api.js              # Axios wrapper for API calls
+│   │   ├── App.js                  # Main React app layout with routing
+│   │   ├── index.js                # App entry point that renders the App component
+│   │   ├── App.css                 # Global or App-specific styles
+│   │   ├── reportWebVitals.js      # (Optional) Web performance tracking
+│   │   └── setupTests.js           # (Optional) Testing configuration
+│   ├── package.json                # React dependencies and scripts
+│   └── README.md                   # Frontend documentation
 │
 ├── .gitignore
-└── README.md                         # Project documentation
+└── README.md                       # Project-level documentation
 
 ```
 
