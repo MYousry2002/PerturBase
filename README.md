@@ -4,31 +4,39 @@ PerturBase is a web-based platform for exploring and querying metadata from Pert
 The app is built using a full-stack architecture with Flask on the backend and React on the frontend. It empowers both computational and non-programming users to intuitively browse, filter, and visualize large-scale perturbation datasets.
 
 ## 🚀 Features
-Features
-	•	📦 Metadata Extraction
+* 📦 Metadata Extraction
+  
 Automatically parses .rds files and extracts key cell-level metadata including gene perturbations, treatment conditions, QC metrics, and sequencing batch info.
-	•	🔎 Advanced Metadata Querying
+
+* 🔎 Advanced Metadata Querying
+  
 Submit custom queries to explore experiment-level and cell-level metadata, such as:
-	•	What perturbation types exist in a dataset?
-	•	How many cells passed QC per batch?
-	•	What is the average mitochondrial content per experiment?
-	•	📊 Dynamic Visualizations
+
+	* What perturbation types exist in a dataset?
+	* How many cells passed QC per batch?
+	* What is the average mitochondrial content per experiment?
+
+* 📊 Visualizations
+
 View key experiment insights at a glance with:
-	•	Bar charts (cells per perturbation type)
-	•	Violin plots (QC metrics across experiments)
-	•	Heatmaps (metadata completeness)
-	•	Pie charts (published vs unpublished datasets)
-	•	Boxplots (cell count distribution)
-	•	💾 Downloadable Results
+	* Bar charts (cells per perturbation type)
+	* Violin plots (QC metrics across experiments)
+	* Heatmaps (metadata completeness)
+	* Pie charts (published vs unpublished datasets)
+	* Boxplots (cell count distribution)
+
+* 💾 Downloadable Results
+  
 Export any metadata query result as a .csv, and download visualization images as .png.
-	•	🧠 Structured Relational Database
+
+* 🧠 Structured Relational Database
 Uses MariaDB with SQLAlchemy to organize extracted metadata for fast and reliable querying.
-	•	🌐 User-Friendly Frontend
+
+* 🌐 User-Friendly Frontend
 Built with React and Axios to provide a seamless, interactive user experience with support for navigation, help pages, and loading states.
-	•	🔐 Security & Versioning (Planned)
-Support for protected unpublished datasets and dataset version history coming soon.
-	•	⚙️ Future Extensibility
-Designed to support more datasets, user uploads, and public deployment via cloud hosting.
+
+* ⚙️ Future Extensibility
+Designed to support more datasets and public deployment via cloud hosting.
 
 ## Usage: 
 
@@ -37,7 +45,7 @@ Watch this demo [here](www.google.com)
 ## Application Structure
 
 ### Backend
-The backend is built with Flask. It is structured to provide API endpoints for user authentication and CRUD operations for lists and tasks. It uses sqlAlchemy for the database.
+The backend is built with Flask. It is structured to provide API endpoints for user authentication and CRUD operations for lists and tasks. It uses MariaDB with SQLAlchemy for the database.
 
 ### Frontend
 The frontend is created using React. It is composed of several components that work together to provide a seamless and dynamic user experience.
