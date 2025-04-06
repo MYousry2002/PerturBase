@@ -21,8 +21,8 @@ def get_experiments():
     params = []
 
     if keyword:
-        query += " AND Name LIKE ?"
-        params.append(f"%{keyword}%")
+        query += " AND Name REGEXP ?"
+        params.append(keyword)
     if treatment:
         query += " AND Treatment = ?"
         params.append(treatment)
