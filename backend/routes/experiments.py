@@ -44,13 +44,14 @@ def get_experiments():
 
 @experiments_bp.route('/advanced', methods=['GET'])
 def get_experiments_advanced():
-    channel_type = request.args.get('type', '')  # 'RNA', 'sgRNA', 'ADT'
+    # Retrieve filter parameters for channel metadata
+    channel_type = request.args.get('type', '')   # e.g., 'RNA', 'sgRNA', 'ADT'
     min_cells = request.args.get('min_cells', 0, type=int)
+    max_mito = request.args.get('max_mito', None)    # e.g., maximum acceptable mitochondrial percentage
 
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     
-    # Join Experiment with ChannelMetaData to filter based on channel attributes
     query = """
     SELECT DISTINCT e.*
     FROM Experiment e
@@ -65,6 +66,9 @@ def get_experiments_advanced():
     if min_cells:
         query += " AND cm.Ncells >= ?"
         params.append(min_cells)
+    if max_mito is not None:
+        query += " AND cm.Mito_avg <= ?"
+        params.append(max_mito)
     
     cursor.execute(query, tuple(params))
     experiments = cursor.fetchall()

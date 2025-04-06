@@ -1,5 +1,6 @@
 // src/components/ExperimentList.js
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 import './ExperimentList.css';
 
@@ -47,7 +48,9 @@ const ExperimentList = ({ filters }) => {
             {experiments.map(exp => (
               <tr key={exp.ExpID}>
                 <td>{exp.ExpID}</td>
-                <td>{exp.Name}</td>
+                <td>
+                  <Link to={`/experiments/${exp.ExpID}`}>{exp.Name}</Link>
+                </td>
                 <td>{exp.Date}</td>
                 <td>{exp.Treatment}</td>
                 <td>{exp.Source}</td>
