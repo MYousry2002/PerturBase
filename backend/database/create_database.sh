@@ -1,0 +1,1 @@
+mariadb -u myousry -p -h bioed-new.bu.edu Team10 < schema.sql

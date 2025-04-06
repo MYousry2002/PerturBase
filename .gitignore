@@ -1,4 +1,5 @@
 # virtual environment
 backend/venv
+backend/.env
 # Node modul
 frontend/node_modules

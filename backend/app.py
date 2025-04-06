@@ -1,6 +1,12 @@
-from app import create_app
+from flask import Flask
+from config import Config
+from routes import register_routes
 
-app = create_app()
+app = Flask(__name__)
+app.config.from_object(Config)
 
-if __name__ == '__main__':
+# Initialize routes (Blueprints)
+register_routes(app)
+
+if __name__ == "__main__":
     app.run(debug=True)
