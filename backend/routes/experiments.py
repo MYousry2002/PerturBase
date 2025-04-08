@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # backend/routes/experiments.py
 from flask import Blueprint, jsonify, request
-from database.db_utils import get_db_connection
+from ..database.db_utils import get_db_connection
 
 experiments_bp = Blueprint('experiments', __name__)
 

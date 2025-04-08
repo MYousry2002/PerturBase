@@ -2,7 +2,7 @@
 # backend/routes/channels.py
 
 from flask import Blueprint, jsonify, request
-from database.db_utils import get_db_connection
+from ..database.db_utils import get_db_connection
 
 channels_bp = Blueprint('channels', __name__)
 

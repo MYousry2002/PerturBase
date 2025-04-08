@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Blueprint, jsonify
-from database.db_utils import get_db_connection
+from ..database.db_utils import get_db_connection
 
 raw_counts_bp = Blueprint('raw_counts', __name__)
 
