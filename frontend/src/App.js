@@ -1,17 +1,5 @@
 // src/App.js
-import React from 'react';
 
-function App() {
-  return (
-    <div style={{ backgroundColor: 'yellow', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <h1>Hello, World!</h1>
-    </div>
-  );
-}
-
-export default App;
-
-/*
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
@@ -37,5 +25,3 @@ function App() {
 }
 
 export default App;
-
-*/
