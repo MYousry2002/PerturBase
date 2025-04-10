@@ -39,4 +39,4 @@ CREATE TABLE RawCounts (
     Matrix_File VARCHAR(256),
     PRIMARY KEY(RawID),
     FOREIGN KEY (ExpID) REFERENCES Experiment(ExpID)
-); engine = innodb;
+) engine = innodb;
