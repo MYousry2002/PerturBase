@@ -11,7 +11,7 @@ import Navbar from './components/common/Navbar';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/students_25/Team10/PerturBase/main">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
