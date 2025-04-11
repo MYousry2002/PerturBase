@@ -56,7 +56,6 @@ PERTURBBASE/
 │   │   └── schema.sql              # SQL script to create the tables (Experiment, ChannelMetaData, etc.)
 │   ├── routes/                     # API endpoints defined as Blueprints
 │   │   ├── __init__.py             # Registers all route Blueprints
-│   │   ├── default.py              # Default route (e.g., '/') returning "PerturBase API is running."
 │   │   ├── experiments.py          # Endpoints for Experiment-related queries
 │   │   ├── channels.py             # Endpoints for ChannelMetaData and ChannelCounts queries
 │   │   └── raw_counts.py           # Endpoints for RawCounts queries
