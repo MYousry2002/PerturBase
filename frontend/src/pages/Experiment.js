@@ -2,18 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../services/api';
-import './Experiment.css'; // Update the CSS file name accordingly
+import './Experiment.css';
 
 const Experiment = () => {
-  const { expId } = useParams();  // Assuming the route is like /experiments/:expId
+  const { expId } = useParams();
   const [experiment, setExperiment] = useState(null);
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch experiment details
-    api.get(`/experiments/${expId}`)
+    // Fetch experiment details:
+    // => "/students_25/Team10/PerturBase/main/api/experiments/<expId>"
+    api.get(`/api/experiments/${expId}`)
       .then(response => {
         setExperiment(response.data);
       })
@@ -21,8 +22,9 @@ const Experiment = () => {
         setError(err);
       });
 
-    // Fetch related channel metadata
-    api.get(`/channels/experiment/${expId}`)
+    // Fetch related channel metadata:
+    // => "/students_25/Team10/PerturBase/main/api/channels/experiment/<expId>"
+    api.get(`/api/channels/experiment/${expId}`)
       .then(response => {
         setChannels(response.data);
         setLoading(false);

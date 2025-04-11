@@ -12,14 +12,32 @@ const ExperimentList = ({ filters }) => {
   useEffect(() => {
     // Build query parameters based on filters
     const queryParams = new URLSearchParams(filters).toString();
-    const endpoint = `/experiments?${queryParams}`;
-    
+
+    // This endpoint must match your Flask route's prefix EXACTLY!
+    // If your blueprint is registered with url_prefix='/students_25/Team10/PerturBase/main/api/experiments'
+    // and your baseURL is '/students_25/Team10/PerturBase/main',
+    // then calling '/api/experiments' => '/students_25/Team10/PerturBase/main/api/experiments'.
+    // Double-check that this is correct for your setup.
+    const endpoint = `/api/experiments?${queryParams}`;
+
     api.get(endpoint)
       .then(response => {
+        // LOG THE RESPONSE to see if we got JSON or HTML
+        console.log('Experiments response data:', response.data);
+
+        // Check if data is an array before calling .map:
+        if (!Array.isArray(response.data)) {
+          throw new Error(
+            `Expected an array but got ${typeof response.data}. Check the Network tab!`
+          );
+        }
+
+        // If it is an array, set state
         setExperiments(response.data);
         setLoading(false);
       })
       .catch(err => {
+        console.error('Error fetching experiments:', err);
         setError(err);
         setLoading(false);
       });
