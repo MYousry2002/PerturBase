@@ -1,4 +1,5 @@
 // src/App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
@@ -10,7 +11,6 @@ import Navbar from './components/common/Navbar';
 
 function App() {
   return (
-    // The basename tells React Router that the app is served at /students_25/Team10/PerturBase/main
     <Router basename="/students_25/Team10/PerturBase/main">
       <Navbar />
       <Routes>
