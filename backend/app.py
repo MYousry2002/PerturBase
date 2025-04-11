@@ -20,7 +20,7 @@ react_build_folder = os.path.join(project_root, 'frontend', 'build')
 # Create the Flask application.
 # - static_folder is set to the React build folder (which contains index.html and all assets).
 # - static_url_path is set to '' so that asset requests like /static/js/... are served correctly.
-app = Flask(__name__, static_folder=react_build_folder, static_url_path='')
+app = Flask(__name__, static_folder=react_build_folder, static_url_path='/students_25/Team10/PerturBase/main')
 app.config.from_object(Config)
 CORS(app)
 
