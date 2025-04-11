@@ -4,48 +4,52 @@ import sys
 from flask import Flask, send_from_directory
 from flask_cors import CORS
 
-# Make sure the project root is added to sys.path.
-# This assumes that backend/app.py is located at: <project_root>/backend/app.py
+# 1. Ensure the project root is on sys.path.
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-# Import configuration and routes from the backend package.
+# 2. Import your config and route-registration
 from backend.config import Config
 from backend.routes import register_routes
 
-# Define the path to the React build folder.
+# 3. Path to the React build folder
 react_build_folder = os.path.join(project_root, 'frontend', 'build')
 
-# Create the Flask application.
-# Keep static_url_path empty so static file routes work cleanly
+# 4. Create the Flask application, using the React build folder for static files
 app = Flask(__name__, static_folder=react_build_folder, static_url_path='')
 
-# Disable strict slashes to avoid redirect loops between /route and /route/
-app.url_map.strict_slashes = False
-
+# 5. Configure app settings & CORS
 app.config.from_object(Config)
 CORS(app)
 
-# Register API routes (e.g., those defined in backend/routes/__init__.py).
+# 6. Disable strict slash
+app.url_map.strict_slashes = False
+
+# 7. Register all routes (the API Blueprints)
 register_routes(app)
 
-# Serve static files manually so React Router works with nested paths
+# 8. Fallback route to serve the React app.
+#    This handles all requests under "/students_25/Team10/PerturBase/main"
+#    that are not matched by an API route or an existing file.
 @app.route('/students_25/Team10/PerturBase/main', defaults={'path': ''})
 @app.route('/students_25/Team10/PerturBase/main/<path:path>')
 def serve_react(path):
-    # Serve static assets (JS, CSS) if they exist
+    # Check if the requested file actually exists in build/...
     full_path = os.path.join(app.static_folder, path)
-    if path != "" and os.path.exists(full_path):
+    if path and os.path.exists(full_path):
+        # Serve the static file (e.g. JS, CSS, images)
         return send_from_directory(app.static_folder, path)
-    # Otherwise serve the React index.html for frontend routes
+    
+    # Otherwise, serve index.html so React Router can handle the path in the frontend
     return send_from_directory(app.static_folder, 'index.html')
 
-# Optional: fallback for 404s to index.html (can be removed if above works fine)
+# 9. (Optional) A 404 handler that also serves index.html
 @app.errorhandler(404)
 def not_found(e):
+    # Usually, for unknown routes, just let React handle it
     return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == "__main__":
-    # For local testing; in production this will be run via CGI/WSGI.
+    # For local testing (in production, you'd use WSGI / mod_wsgi / gunicorn)
     app.run(debug=True)

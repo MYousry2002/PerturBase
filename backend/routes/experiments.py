@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # backend/routes/experiments.py
+
 from flask import Blueprint, jsonify, request
 from ..database.db_utils import get_db_connection
 
@@ -7,7 +8,7 @@ experiments_bp = Blueprint('experiments', __name__)
 
 @experiments_bp.route('/', methods=['GET'])
 def get_experiments():
-    # Get query parameters for filtering
+    """GET /students_25/Team10/PerturBase/main/api/experiments/"""
     keyword = request.args.get('keyword', '')
     treatment = request.args.get('treatment', '')
     publication = request.args.get('publication', '')
@@ -41,22 +42,21 @@ def get_experiments():
     conn.close()
     return jsonify(experiments)
 
-
 @experiments_bp.route('/advanced', methods=['GET'])
 def get_experiments_advanced():
-    # Retrieve filter parameters for channel metadata
-    channel_type = request.args.get('type', '')   # e.g., 'RNA', 'sgRNA', 'ADT'
+    """GET /students_25/Team10/PerturBase/main/api/experiments/advanced"""
+    channel_type = request.args.get('type', '')
     min_cells = request.args.get('min_cells', 0, type=int)
-    max_mito = request.args.get('max_mito', None)    # e.g., maximum acceptable mitochondrial percentage
+    max_mito = request.args.get('max_mito', None)
 
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     
     query = """
-    SELECT DISTINCT e.*
-    FROM Experiment e
-    JOIN ChannelMetaData cm ON e.ExpID = cm.ExpID
-    WHERE 1=1
+        SELECT DISTINCT e.*
+        FROM Experiment e
+        JOIN ChannelMetaData cm ON e.ExpID = cm.ExpID
+        WHERE 1=1
     """
     params = []
 
@@ -75,16 +75,15 @@ def get_experiments_advanced():
     conn.close()
     return jsonify(experiments)
 
-
 @experiments_bp.route('/<int:exp_id>', methods=['GET'])
 def get_experiment(exp_id):
+    """GET /students_25/Team10/PerturBase/main/api/experiments/<exp_id>"""
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    
     cursor.execute("SELECT * FROM Experiment WHERE ExpID = ?", (exp_id,))
     experiment = cursor.fetchone()
     conn.close()
-    
+
     if experiment:
         return jsonify(experiment)
     else:

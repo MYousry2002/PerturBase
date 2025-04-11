@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Fetch metrics from the dashboard API endpoint
-    api.get('/dashboard/metrics')
+    api.get('/api/dashboard/metrics')
       .then(response => {
         setMetrics(response.data);
         setLoading(false);
