@@ -104,7 +104,10 @@ th.sortable-header {
 }
 
 th.sortable-header .sort-arrow {
-  font-size: 0.8rem;
+  display: inline-block;
+  width: 1.5em; /* reserve enough space */
+  text-align: left;
+  font-size: 0.85rem;
   color: #ccc;
   transition: color 0.2s ease;
 }
@@ -115,8 +118,4 @@ th.sortable-header.active .sort-arrow {
 
 th.sortable-header:hover .sort-arrow {
   color: #aaa;
-}
-
-.experiment-table tr {
-  transition: background-color 0.2s ease;
 }
