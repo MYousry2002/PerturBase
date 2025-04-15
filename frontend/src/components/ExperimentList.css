@@ -1,35 +1,62 @@
+/* Container Styling */
 .experiment-list-container {
-    padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .experiment-list-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styling */
+.experiment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+
+.experiment-table th,
+.experiment-table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.experiment-table th {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.experiment-table td a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.experiment-table td a:hover {
+  text-decoration: underline;
+}
+
+.experiment-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.experiment-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
   .experiment-table {
-    width: 100%;
-    border-collapse: collapse;
+    font-size: 0.85rem;
   }
-  
+
   .experiment-table th,
   .experiment-table td {
-    border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
   }
-  
-  .experiment-table th {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  .experiment-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .experiment-table tr:hover {
-    background-color: #ddd;
-  }
+}

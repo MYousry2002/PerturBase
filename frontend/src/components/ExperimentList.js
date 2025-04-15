@@ -10,29 +10,14 @@ const ExperimentList = ({ filters }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Build query parameters based on filters
     const queryParams = new URLSearchParams(filters).toString();
-
-    // This endpoint must match your Flask route's prefix EXACTLY!
-    // If your blueprint is registered with url_prefix='/students_25/Team10/PerturBase/main/api/experiments'
-    // and your baseURL is '/students_25/Team10/PerturBase/main',
-    // then calling '/api/experiments' => '/students_25/Team10/PerturBase/main/api/experiments'.
-    // Double-check that this is correct for your setup.
     const endpoint = `/api/experiments?${queryParams}`;
 
     api.get(endpoint)
       .then(response => {
-        // LOG THE RESPONSE to see if we got JSON or HTML
-        console.log('Experiments response data:', response.data);
-
-        // Check if data is an array before calling .map:
         if (!Array.isArray(response.data)) {
-          throw new Error(
-            `Expected an array but got ${typeof response.data}. Check the Network tab!`
-          );
+          throw new Error(`Expected an array but got ${typeof response.data}`);
         }
-
-        // If it is an array, set state
         setExperiments(response.data);
         setLoading(false);
       })
@@ -60,19 +45,23 @@ const ExperimentList = ({ filters }) => {
               <th>Treatment</th>
               <th>Source</th>
               <th>Publication</th>
+              <th>Type</th>
+              <th>Total Cells</th>
+              <th># Channels</th>
             </tr>
           </thead>
           <tbody>
             {experiments.map(exp => (
               <tr key={exp.ExpID}>
                 <td>{exp.ExpID}</td>
-                <td>
-                  <Link to={`/experiments/${exp.ExpID}`}>{exp.Name}</Link>
-                </td>
+                <td><Link to={`/experiments/${exp.ExpID}`}>{exp.Name}</Link></td>
                 <td>{exp.Date}</td>
                 <td>{exp.Treatment}</td>
                 <td>{exp.Source}</td>
                 <td>{exp.Publication}</td>
+                <td>{exp.Type}</td>
+                <td>{exp.TotalCells ?? 0}</td>
+                <td>{exp.NumChannels ?? 0}</td>
               </tr>
             ))}
           </tbody>

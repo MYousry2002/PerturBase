@@ -8,7 +8,6 @@ experiments_bp = Blueprint('experiments', __name__)
 
 @experiments_bp.route('/', methods=['GET'])
 def get_experiments():
-    """GET /students_25/Team10/PerturBase/main/api/experiments/"""
     keyword = request.args.get('keyword', '')
     treatment = request.args.get('treatment', '')
     publication = request.args.get('publication', '')
@@ -18,29 +17,59 @@ def get_experiments():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
-    query = "SELECT * FROM Experiment WHERE 1=1"
+    query = """
+        SELECT
+            e.ExpID, e.Name, e.Date, e.Treatment, e.Source, e.Publication,
+            MAX(cm.Type) AS Type,  -- Assumes each experiment has only one type
+            COUNT(cm.CMID) AS NumChannels,
+            SUM(cm.Ncells) AS TotalCells
+        FROM Experiment e
+        LEFT JOIN ChannelMetaData cm ON e.ExpID = cm.ExpID
+        WHERE 1=1
+    """
     params = []
 
     if keyword:
-        query += " AND Name REGEXP ?"
+        query += " AND e.Name REGEXP %s"
         params.append(keyword)
     if treatment:
-        query += " AND Treatment = ?"
+        query += " AND e.Treatment = %s"
         params.append(treatment)
     if publication:
-        query += " AND Publication = ?"
+        query += " AND e.Publication = %s"
         params.append(publication)
     if start_date:
-        query += " AND Date >= ?"
+        query += " AND e.Date >= %s"
         params.append(start_date)
     if end_date:
-        query += " AND Date <= ?"
+        query += " AND e.Date <= %s"
         params.append(end_date)
+
+    query += " GROUP BY e.ExpID ORDER BY e.ExpID ASC"
 
     cursor.execute(query, tuple(params))
     experiments = cursor.fetchall()
     conn.close()
     return jsonify(experiments)
+
+
+@experiments_bp.route('/distinct_values', methods=['GET'])
+def get_distinct_filter_values():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT DISTINCT Treatment FROM Experiment WHERE Treatment IS NOT NULL AND Treatment != ''")
+    treatments = sorted([row["Treatment"] for row in cursor.fetchall()])
+
+    cursor.execute("SELECT DISTINCT Source FROM Experiment WHERE Source IS NOT NULL AND Source != ''")
+    sources = sorted([row["Source"] for row in cursor.fetchall()])
+
+    conn.close()
+    return jsonify({
+        "treatments": treatments,
+        "sources": sources
+    })
+
 
 @experiments_bp.route('/advanced', methods=['GET'])
 def get_experiments_advanced():
