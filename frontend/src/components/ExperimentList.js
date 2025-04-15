@@ -46,7 +46,7 @@ const ExperimentList = ({ filters }) => {
     if (sortBy === field) {
       return sortOrder === 'ASC' ? '▲' : '▼';
     }
-    return '△▽'; // double arrow when not active
+    return '△'; // double arrow when not active
   };
 
   if (loading) return <p>Loading experiments...</p>;
