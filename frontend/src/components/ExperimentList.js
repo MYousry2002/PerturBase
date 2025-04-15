@@ -8,12 +8,17 @@ const ExperimentList = ({ filters }) => {
   const [experiments, setExperiments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortBy, setSortBy] = useState('ExpID');
+  const [sortOrder, setSortOrder] = useState('ASC');
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(filters).toString();
-    const endpoint = `/api/experiments?${queryParams}`;
+    const queryParams = new URLSearchParams({
+      ...filters,
+      sort_by: sortBy,
+      sort_order: sortOrder
+    }).toString();
 
-    api.get(endpoint)
+    api.get(`/api/experiments?${queryParams}`)
       .then(response => {
         if (!Array.isArray(response.data)) {
           throw new Error(`Expected an array but got ${typeof response.data}`);
@@ -26,7 +31,23 @@ const ExperimentList = ({ filters }) => {
         setError(err);
         setLoading(false);
       });
-  }, [filters]);
+  }, [filters, sortBy, sortOrder]);
+
+  const handleSort = (field) => {
+    if (sortBy === field) {
+      setSortOrder(prev => (prev === 'ASC' ? 'DESC' : 'ASC'));
+    } else {
+      setSortBy(field);
+      setSortOrder('ASC');
+    }
+  };
+
+  const renderSortArrow = (field) => {
+    if (sortBy === field) {
+      return sortOrder === 'ASC' ? '▲' : '▼';
+    }
+    return '△▽'; // double arrow when not active
+  };
 
   if (loading) return <p>Loading experiments...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -39,9 +60,19 @@ const ExperimentList = ({ filters }) => {
         <table className="experiment-table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th
+                onClick={() => handleSort('ExpID')}
+                className={`sortable-header ${sortBy === 'ExpID' ? 'active' : ''}`}
+              >
+                ID <span className="sort-arrow">{renderSortArrow('ExpID')}</span>
+              </th>
               <th>Name</th>
-              <th>Date</th>
+              <th
+                onClick={() => handleSort('Date')}
+                className={`sortable-header ${sortBy === 'Date' ? 'active' : ''}`}
+              >
+                Date <span className="sort-arrow">{renderSortArrow('Date')}</span>
+              </th>
               <th>Treatment</th>
               <th>Source</th>
               <th>Publication</th>

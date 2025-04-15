@@ -13,14 +13,28 @@ def get_experiments():
     publication = request.args.get('publication', '')
     start_date = request.args.get('start_date', '')
     end_date = request.args.get('end_date', '')
+    exp_type = request.args.get('type', '')
+    min_cells = request.args.get('min_cells', type=int)
+    source = request.args.get('source', '')
+    sort_by = request.args.get('sort_by', 'ExpID')
+    sort_order = request.args.get('sort_order', 'ASC').upper()
 
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
+    # Safety: Only allow specific fields for ordering
+    allowed_sort_fields = ['ExpID', 'Date']
+    allowed_sort_order = ['ASC', 'DESC']
+
+    if sort_by not in allowed_sort_fields:
+        sort_by = 'ExpID'
+    if sort_order not in allowed_sort_order:
+        sort_order = 'ASC'
+
     query = """
         SELECT
             e.ExpID, e.Name, e.Date, e.Treatment, e.Source, e.Publication,
-            MAX(cm.Type) AS Type,  -- Assumes each experiment has only one type
+            MAX(cm.Type) AS Type,
             COUNT(cm.CMID) AS NumChannels,
             SUM(cm.Ncells) AS TotalCells
         FROM Experiment e
@@ -38,14 +52,23 @@ def get_experiments():
     if publication:
         query += " AND e.Publication = %s"
         params.append(publication)
+    if source:
+        query += " AND e.Source = %s"
+        params.append(source)
     if start_date:
         query += " AND e.Date >= %s"
         params.append(start_date)
     if end_date:
         query += " AND e.Date <= %s"
         params.append(end_date)
+    if exp_type:
+        query += " AND cm.Type = %s"
+        params.append(exp_type)
+    if min_cells is not None:
+        query += " AND cm.Ncells >= %s"
+        params.append(min_cells)
 
-    query += " GROUP BY e.ExpID ORDER BY e.ExpID ASC"
+    query += f" GROUP BY e.ExpID ORDER BY e.{sort_by} {sort_order}"
 
     cursor.execute(query, tuple(params))
     experiments = cursor.fetchall()
