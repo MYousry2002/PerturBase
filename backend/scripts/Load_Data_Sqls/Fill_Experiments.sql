@@ -1,0 +1,1 @@
+INSERT INTO Experiment (Name, Treatment, Source) VALUES ("TF-1x-CTRL", "TF-1x-CTRL", "Cleary Lab"), ("TF-1x-CoCx", "TF-1x-CoCx", "Cleary Lab"), ("TF-1x-IFNg", "TF-1x-IFNg", "Cleary Lab"), ("TF-2x-CoCx", "TF-2x-CoCx", "Cleary Lab");
