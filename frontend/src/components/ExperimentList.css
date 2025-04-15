@@ -97,16 +97,15 @@
 th.sortable-header {
   cursor: pointer;
   user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 6px;
+  position: relative;
+  padding-right: 1.5em; /* reserve space for arrow */
 }
 
 th.sortable-header .sort-arrow {
-  display: inline-block;
-  width: 1.5em; /* reserve enough space */
-  text-align: left;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 0.85rem;
   color: #ccc;
   transition: color 0.2s ease;
