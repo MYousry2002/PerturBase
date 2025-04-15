@@ -72,14 +72,14 @@ const Home = () => {
           <div className="developer-card">
             <img src="/students_25/Team10/PerturBase/main/home_images/wisdom.jpg" alt="Wisdom Adingo" />
             <h4>Wisdom Adingo</h4>
-            <p>UX Designer & Data Query Developer</p>
+            <p>User Experience & Data Display Designer</p>
             <a href="mailto:wadingo@bu.edu">wadingo@bu.edu</a>
             <a href="https://github.com/wisdomadingo" target="_blank">GitHub</a>
           </div>
           <div className="developer-card">
             <img src="/students_25/Team10/PerturBase/main/home_images/shahadat.png" alt="Md Shahadat Hossain" />
             <h4>Md Shahadat Hossain</h4>
-            <p>UX Designer & Data Query Developer</p>
+            <p>User Experience & Data Display Designer</p>
             <a href="mailto:shahadat@bu.edu">shahadat@bu.edu</a>
             <a href="https://github.com/shahadat4099" target="_blank">GitHub</a>
           </div>
