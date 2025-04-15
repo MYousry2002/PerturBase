@@ -22,7 +22,6 @@ def get_experiments():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
-    # Safety: Only allow specific fields for ordering
     allowed_sort_fields = ['ExpID', 'Date']
     allowed_sort_order = ['ASC', 'DESC']
 
@@ -31,7 +30,7 @@ def get_experiments():
     if sort_order not in allowed_sort_order:
         sort_order = 'ASC'
 
-    query = """
+    base_query = """
         SELECT
             e.ExpID, e.Name, e.Date, e.Treatment, e.Source, e.Publication,
             MAX(cm.Type) AS Type,
@@ -44,33 +43,41 @@ def get_experiments():
     params = []
 
     if keyword:
-        query += " AND e.Name REGEXP %s"
+        base_query += " AND e.Name REGEXP %s"
         params.append(keyword)
     if treatment:
-        query += " AND e.Treatment = %s"
+        base_query += " AND e.Treatment = %s"
         params.append(treatment)
     if publication:
-        query += " AND e.Publication = %s"
+        base_query += " AND e.Publication = %s"
         params.append(publication)
     if source:
-        query += " AND e.Source = %s"
+        base_query += " AND e.Source = %s"
         params.append(source)
     if start_date:
-        query += " AND e.Date >= %s"
+        base_query += " AND e.Date >= %s"
         params.append(start_date)
     if end_date:
-        query += " AND e.Date <= %s"
+        base_query += " AND e.Date <= %s"
         params.append(end_date)
     if exp_type:
-        query += " AND cm.Type = %s"
+        base_query += " AND cm.Type = %s"
         params.append(exp_type)
+
+    base_query += " GROUP BY e.ExpID"
+
+    # Wrap in subquery if filtering by min_cells
     if min_cells is not None:
-        query += " AND cm.Ncells >= %s"
+        final_query = f"""
+            SELECT * FROM ({base_query}) AS subquery
+            WHERE subquery.TotalCells >= %s
+            ORDER BY subquery.{sort_by} {sort_order}
+        """
         params.append(min_cells)
+    else:
+        final_query = f"{base_query} ORDER BY e.{sort_by} {sort_order}"
 
-    query += f" GROUP BY e.ExpID ORDER BY e.{sort_by} {sort_order}"
-
-    cursor.execute(query, tuple(params))
+    cursor.execute(final_query, tuple(params))
     experiments = cursor.fetchall()
     conn.close()
     return jsonify(experiments)
