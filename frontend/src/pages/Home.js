@@ -15,9 +15,14 @@ const Home = () => {
           />
           <h1>PerturBase</h1>
           <p>Your gateway to exploring Perturb‑seq experiments</p>
-          <Link to="/dashboard" className="btn btn-primary">
-            Explore Dashboard
-          </Link>
+          <div className="hero-buttons">
+            <Link to="/dashboard" className="btn btn-dashboard">
+              Data Overview
+            </Link>
+            <Link to="/experiments" className="btn btn-experiments">
+              Experiment Explorer
+            </Link>
+          </div>
         </div>
       </header>
 
