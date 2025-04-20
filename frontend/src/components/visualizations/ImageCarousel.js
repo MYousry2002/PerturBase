@@ -6,9 +6,8 @@ import './ImageCarousel.css';
 
 const ImageCarousel = ({ imageUrls }) => {
   const [index, setIndex] = useState(0);
-
-  const isBioed = window.location.hostname === 'bioed-new.bu.edu';
-  const basePath = isBioed ? '/students_25/Team10/PerturBase/main' : '';
+  
+  const basePath = '/students_25/Team10/PerturBase/main';
 
   const validImages = Array.isArray(imageUrls)
     ? imageUrls.filter(Boolean).map((url) => `${basePath}${url}`)
