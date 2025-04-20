@@ -84,20 +84,28 @@ def get_experiments():
 
 
 @experiments_bp.route('/distinct_values', methods=['GET'])
-def get_distinct_filter_values():
+def get_distinct_values():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT DISTINCT Treatment FROM Experiment WHERE Treatment IS NOT NULL AND Treatment != ''")
-    treatments = sorted([row["Treatment"] for row in cursor.fetchall()])
+    cursor.execute("SELECT DISTINCT Treatment FROM Experiment WHERE Treatment IS NOT NULL")
+    treatments = sorted(row["Treatment"] for row in cursor.fetchall())
 
-    cursor.execute("SELECT DISTINCT Source FROM Experiment WHERE Source IS NOT NULL AND Source != ''")
-    sources = sorted([row["Source"] for row in cursor.fetchall()])
+    cursor.execute("SELECT DISTINCT Source FROM Experiment WHERE Source IS NOT NULL")
+    sources = sorted(row["Source"] for row in cursor.fetchall())
+
+    cursor.execute("SELECT DISTINCT Publication FROM Experiment WHERE Publication IS NOT NULL")
+    publications_raw = [row["Publication"] for row in cursor.fetchall()]
+
+    # Sort so "Unpublished" always comes first, then other DOIs
+    publications = sorted(publications_raw, key=lambda x: (x != "Unpublished", x))
 
     conn.close()
+
     return jsonify({
         "treatments": treatments,
-        "sources": sources
+        "sources": sources,
+        "publications": publications
     })
 
 

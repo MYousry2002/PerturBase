@@ -15,12 +15,14 @@ const ExperimentFilter = ({ onFilter }) => {
 
   const [treatmentOptions, setTreatmentOptions] = useState([]);
   const [sourceOptions, setSourceOptions] = useState([]);
+  const [publicationOptions, setPublicationOptions] = useState([]);
 
   useEffect(() => {
     api.get('/api/experiments/distinct_values')
       .then(res => {
         setTreatmentOptions(res.data.treatments || []);
         setSourceOptions(res.data.sources || []);
+        setPublicationOptions(res.data.publications || []);
       })
       .catch(err => console.error('Error fetching dropdown values:', err));
   }, []);
@@ -81,17 +83,20 @@ const ExperimentFilter = ({ onFilter }) => {
       </div>
 
       <div className="filter-group">
-        <label htmlFor="publication">Publication</label>
-        <select
-          id="publication"
-          value={publication}
-          onChange={(e) => setPublication(e.target.value)}
-        >
-          <option value="">Any</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-      </div>
+      <label htmlFor="publication">Publication</label>
+      <input
+        id="publication"
+        list="publication-options"
+        placeholder="Enter DOI or Unpublished"
+        value={publication}
+        onChange={(e) => setPublication(e.target.value)}
+      />
+      <datalist id="publication-options">
+        {publicationOptions.map((val, idx) => (
+          <option key={idx} value={val} />
+        ))}
+      </datalist>
+    </div>
 
       <div className="filter-group">
         <label htmlFor="type">Experiment Type</label>
