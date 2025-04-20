@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../services/api';
+import ImageCarousel from '../components/visualizations/ImageCarousel';
 import './Experiment.css';
 
 const Experiment = () => {
@@ -29,13 +30,36 @@ const Experiment = () => {
       });
   }, [expId]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || !experiment) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
+
+  const normalizeView = (view) => view.toLowerCase().replace(/\s+/g, '_');
+
+  const PlotSection = ({ expId, view }) => {
+    const [plotImages, setPlotImages] = useState([]);
+
+    useEffect(() => {
+      const normalized = normalizeView(view);
+      api.get(`/api/plots/${expId}/${normalized}`)
+        .then(res => {
+          setPlotImages(res.data);
+        })
+        .catch(err => {
+          setPlotImages([]);
+        });
+    }, [expId, view]);
+
+    return plotImages.length > 0 ? (
+      <ImageCarousel imageUrls={plotImages} />
+    ) : (
+      <p>No plots available for this view.</p>
+    );
+  };
 
   return (
     <div className="experiment-page">
       <h1 className="experiment-title">{experiment.Name}</h1>
-      
+
       <div className="experiment-tabs">
         {['Metadata', 'Visualization', 'Download'].map(tab => (
           <button
@@ -98,10 +122,7 @@ const Experiment = () => {
             ))}
           </aside>
           <main className="visualization-content">
-            <div className="carousel-placeholder">
-              <p>{activeView} content goes here</p>
-              {/* You can later replace this with actual visualization components or images */}
-            </div>
+            <PlotSection expId={expId} view={activeView} />
           </main>
         </div>
       )}
