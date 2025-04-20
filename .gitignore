@@ -1,5 +1,21 @@
-# virtual environment
-backend/venv
-backend/.env
-# Node modul
-frontend/node_modules
+# ─── Python backend ────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+
+# ─── Environment files ─────────────────────────
+.env
+venv
+
+# ─── VS Code settings ──────────────────────────
+.vscode/
+
+# ─── Logs and junk ─────────────────────────────
+*.log
+*.swp
+
+# ─── Frontend ──────────────────────────────────
+frontend/node_modules/
+frontend/build/
+frontend/.DS_Store
