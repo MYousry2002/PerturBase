@@ -9,7 +9,7 @@ from backend.routes import register_routes
 def create_app():
     """
     Flask application factory.
-    Creates and configures a new Flask app instance.
+    Creates and configures a Flask app instance.
     """
 
     # Resolve the root of the project
