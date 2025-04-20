@@ -1,10 +1,11 @@
 # backend/factory.py
 
 import os
+import sys
+import importlib
 from flask import Flask, send_from_directory
 from flask_cors import CORS
 from backend.config import Config
-from backend.routes import register_routes
 
 def create_app():
     """
@@ -29,15 +30,17 @@ def create_app():
     app.config.from_object(Config)
     CORS(app)
 
-    # Optional: ignore trailing slashes in routes
+    # Ignore trailing slashes in routes
     app.url_map.strict_slashes = False
 
-    # Register all backend routes (e.g. via Blueprints)
-    register_routes(app)
+    # Remove all cached submodules under backend.routes.*
+    for mod in list(sys.modules):
+        if mod.startswith("backend.routes"):
+            del sys.modules[mod]
 
-    @app.route('/test')
-    def test():
-        return "latest version loaded of PerturBase!"
+    # Register all backend routes (e.g. via Blueprints), loaded dynamically
+    routes_module = importlib.import_module("backend.routes")
+    routes_module.register_routes(app)
 
     # Route: Serve React index.html or static files
     @app.route('/students_25/Team10/PerturBase/main', defaults={'path': ''})
