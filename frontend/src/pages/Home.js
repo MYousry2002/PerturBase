@@ -106,11 +106,6 @@ const Home = () => {
         </div>
 
         </section>
-
-      {/* Footer */}
-      <footer className="home-footer">
-        <p>&copy; {new Date().getFullYear()} PerturBase. All rights reserved.</p>
-      </footer>
     </div>
   );
 };

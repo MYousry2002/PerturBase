@@ -1,0 +1,7 @@
+/* src/components/common/Footer.css */
+.app-footer {
+    padding: 20px;
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+  }

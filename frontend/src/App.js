@@ -7,19 +7,25 @@ import Experiments from './pages/Experiments';
 import Experiment from './pages/Experiment';
 import Help from './pages/Help';
 import Navbar from './components/common/Navbar';
+import Footer from './components/common/Footer';
+import './App.css'; // Make sure this is included
 
 function App() {
   return (
-    // The basename tells React Router that the app is served at /students_25/Team10/PerturBase/main
     <Router basename="/students_25/Team10/PerturBase/main">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/experiments" element={<Experiments />} />
-        <Route path="/experiments/:expId" element={<Experiment />} />
-        <Route path="/help" element={<Help />} />
-      </Routes>
+      <div className="app-wrapper">
+        <Navbar />
+        <div className="app-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/experiments" element={<Experiments />} />
+            <Route path="/experiments/:expId" element={<Experiment />} />
+            <Route path="/help" element={<Help />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </Router>
   );
 }
