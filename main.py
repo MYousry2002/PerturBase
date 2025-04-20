@@ -1,14 +1,28 @@
 #!/usr/bin/env python3
-import sys
+import importlib.util
 import os
+import sys
 
-# Set the project root
+# Clear cached dynamic modules
+if "flask_app" in sys.modules:
+    del sys.modules["flask_app"]
+
+# Get absolute path to backend/app.py
 project_root = os.path.abspath(os.path.dirname(__file__))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+app_path = os.path.join(project_root, 'backend', 'app.py')
 
-# Import the Flask app from the backend package using its name
-from backend.app import app
+# Static module name to overwrite consistently
+module_name = "flask_app"
 
+# Load backend/app.py dynamically
+spec = importlib.util.spec_from_file_location(module_name, app_path)
+app_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(app_module)
+
+# Build the Flask app via the factory pattern
+app = app_module.create_app()
+application = app  # For server deployment
+
+# Local development server
 if __name__ == "__main__":
     app.run(debug=True)
