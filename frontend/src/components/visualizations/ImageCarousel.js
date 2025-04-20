@@ -6,7 +6,13 @@ import './ImageCarousel.css';
 
 const ImageCarousel = ({ imageUrls }) => {
   const [index, setIndex] = useState(0);
-  const validImages = Array.isArray(imageUrls) ? imageUrls.filter(Boolean) : [];
+
+  const isBioed = window.location.hostname === 'bioed-new.bu.edu';
+  const basePath = isBioed ? '/students_25/Team10/PerturBase/main' : '';
+
+  const validImages = Array.isArray(imageUrls)
+    ? imageUrls.filter(Boolean).map((url) => `${basePath}${url}`)
+    : [];
 
   const handlePrev = () => {
     setIndex((prev) => (prev - 1 + validImages.length) % validImages.length);
@@ -30,7 +36,7 @@ const ImageCarousel = ({ imageUrls }) => {
             alt={`Slide ${index + 1}`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = '/plots/fallback.png';
+              e.target.src = `${basePath}/plots/fallback.png`;
             }}
           />
           <a
@@ -38,11 +44,11 @@ const ImageCarousel = ({ imageUrls }) => {
             download
             className="carousel-download"
             title="Download image"
-            >
+          >
             <div className="carousel-download-icon">
-                <Download size={20} strokeWidth={2} />
+              <Download size={20} strokeWidth={2} />
             </div>
-            </a>
+          </a>
         </div>
         <button onClick={handleNext} className="carousel-nav right">&gt;</button>
       </div>
@@ -55,7 +61,6 @@ const ImageCarousel = ({ imageUrls }) => {
           />
         ))}
       </div>
-
     </div>
   );
 };
