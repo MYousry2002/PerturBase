@@ -8,6 +8,11 @@ const Home = () => {
       {/* Hero Section */}
       <header className="hero-section">
         <div className="hero-content">
+          <img
+            src={`${process.env.PUBLIC_URL}/logo.png`}
+            alt="PerturBase Logo"
+            className="home-logo"
+          />
           <h1>PerturBase</h1>
           <p>Your gateway to exploring Perturb‑seq experiments</p>
           <Link to="/dashboard" className="btn btn-primary">
@@ -56,28 +61,28 @@ const Home = () => {
         {/* Top Rectangle: Developer Cards - Horizontally Aligned */}
         <div className="developer-cards-row">
           <div className="developer-card">
-            <img src="/students_25/Team10/PerturBase/main/home_images/yousry.jpg" alt="Mohamed Yousry" />
+            <img src="/students_25/Team10/PerturBase/main/images/yousry.jpg" alt="Mohamed Yousry" />
             <h4>Mohamed Yousry ElSadec</h4>
             <p>Full Stack Developer & Deployment Lead</p>
             <a href="mailto:myousry@bu.edu">myousry@bu.edu</a>
             <a href="https://github.com/myousry2002" target="_blank">GitHub</a>
           </div>
           <div className="developer-card">
-            <img src="/students_25/Team10/PerturBase/main/home_images/luke.jpg" alt="Luke Berger" />
+            <img src="/students_25/Team10/PerturBase/main/images/luke.jpg" alt="Luke Berger" />
             <h4>Luke Berger</h4>
             <p>Data Pipeline & Database Schema Architect</p>
             <a href="mailto:lukeberg@bu.edu">lukeberg@bu.edu</a>
             <a href="https://github.com/lukeberg" target="_blank">GitHub</a>
           </div>
           <div className="developer-card">
-            <img src="/students_25/Team10/PerturBase/main/home_images/wisdom.jpg" alt="Wisdom Adingo" />
+            <img src="/students_25/Team10/PerturBase/main/images/wisdom.jpg" alt="Wisdom Adingo" />
             <h4>Wisdom Adingo</h4>
             <p>User Experience & Data Display Designer</p>
             <a href="mailto:wadingo@bu.edu">wadingo@bu.edu</a>
             <a href="https://github.com/wisdomadingo" target="_blank">GitHub</a>
           </div>
           <div className="developer-card">
-            <img src="/students_25/Team10/PerturBase/main/home_images/shahadat.png" alt="Md Shahadat Hossain" />
+            <img src="/students_25/Team10/PerturBase/main/images/shahadat.png" alt="Md Shahadat Hossain" />
             <h4>Md Shahadat Hossain</h4>
             <p>User Experience & Data Display Designer</p>
             <a href="mailto:shahadat@bu.edu">shahadat@bu.edu</a>
@@ -87,7 +92,7 @@ const Home = () => {
 
         {/* Bottom Rectangle: BU Info - Logo on Left, Text on Right */}
         <div className="bu-info-horizontal">
-          <img src="/students_25/Team10/PerturBase/main/home_images/BUlogo.png" alt="Boston University Logo" className="bu-logo" />
+          <img src="/students_25/Team10/PerturBase/main/images/BUlogo.png" alt="Boston University Logo" className="bu-logo" />
           <div className="bu-text">
           <p>
             This project was developed at <strong>Boston University</strong> as part of <strong>BF768 – Biological Databases Analysis</strong> during the Spring of 2025, under the instruction of <strong>Prof. Gary Benson</strong>. The faculty advisor for this project was <strong>Dr. Brian Cleary</strong>.
