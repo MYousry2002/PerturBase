@@ -1,6 +1,7 @@
 //  src/components/visualizations/ImageCarousel.js
 
 import React, { useState } from 'react';
+import { Download } from 'lucide-react';
 import './ImageCarousel.css';
 
 const ImageCarousel = ({ imageUrls }) => {
@@ -32,6 +33,16 @@ const ImageCarousel = ({ imageUrls }) => {
               e.target.src = '/plots/fallback.png';
             }}
           />
+          <a
+            href={validImages[index]}
+            download
+            className="carousel-download"
+            title="Download image"
+            >
+            <div className="carousel-download-icon">
+                <Download size={20} strokeWidth={2} />
+            </div>
+            </a>
         </div>
         <button onClick={handleNext} className="carousel-nav right">&gt;</button>
       </div>
@@ -44,6 +55,7 @@ const ImageCarousel = ({ imageUrls }) => {
           />
         ))}
       </div>
+
     </div>
   );
 };
