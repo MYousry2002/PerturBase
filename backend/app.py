@@ -35,8 +35,8 @@ def create_app():
     # Register all backend routes (e.g. via Blueprints)
     register_routes(app)
 
-    @app.route('/_factory_reloaded')
-    def factory_reloaded():
+    @app.route('/test')
+    def test():
         return "latest version loaded of PerturBase!"
 
     # Route: Serve React index.html or static files
