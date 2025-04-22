@@ -27,7 +27,6 @@
 
   .filters-wrapper,
   .table-wrapper {
-    width: 95%;
     max-width: 1200px; /* change this to adjust the width of components on screen */
     margin: 0 auto;
     padding: 0 1rem; /* for breathing space */

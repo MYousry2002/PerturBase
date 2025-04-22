@@ -1,7 +1,7 @@
 /* Container Styling */
 .experiment-list-container {
   padding: 20px;
-  width: 100%;
+  max-width: clamp(300px, 90vw, 1200px); /* Responsive + capped width */
   margin: 0 auto;
   background-color: #fff;
   border-radius: 8px;
