@@ -45,6 +45,18 @@
   margin: 4px 0;
 }
 
+.metadata-summary {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.metadata-summary strong {
+  color: #222;
+  margin-right: 0.4rem;
+}
+
 .channel-table {
   width: 100%;
   border-collapse: collapse;

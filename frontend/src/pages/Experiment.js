@@ -117,10 +117,13 @@ const Experiment = () => {
 
       {activeTab === 'Metadata' && (
         <div className="metadata-section">
-          <p><strong>Date:</strong> {experiment.Date}</p>
-          <p><strong>Treatment:</strong> {experiment.Treatment}</p>
-          <p><strong>Source:</strong> {experiment.Source}</p>
-          <p><strong>Publication:</strong> {experiment.Publication}</p>
+          <div className="metadata-summary">
+            <p><strong>Date:</strong> {experiment.Date}</p>
+            <p><strong>Treatment:</strong> {experiment.Treatment}</p>
+            <p><strong>Source:</strong> {experiment.Source}</p>
+            <p><strong>Publication:</strong> {experiment.Publication}</p>
+          </div>
+
           <h2>Channel Details</h2>
           <table className="channel-table">
             <thead>
