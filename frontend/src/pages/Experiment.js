@@ -56,6 +56,49 @@ const Experiment = () => {
     );
   };
 
+  const downloadMetadataCSV = () => {
+    if (!experiment || channels.length === 0) return;
+  
+    const metadataRows = [
+      ['Experiment Metadata'],
+      ['Field', 'Value'],
+      ['Name', experiment.Name],
+      ['Date', experiment.Date],
+      ['Treatment', experiment.Treatment],
+      ['Source', experiment.Source],
+      ['Publication', experiment.Publication],
+      [],
+      ['Channel Details'],
+      ['CMID', 'Type', 'Ncells', 'Nfeatures_avg', 'Ncount_avg', 'Mito_avg', 'Ribo_avg'],
+      ...channels.map(c => [
+        c.CMID,
+        c.Type,
+        c.Ncells,
+        c.Nfeatures_avg,
+        c.Ncount_avg,
+        c.Mito_avg,
+        c.Ribo_avg
+      ])
+    ];
+  
+    const csvContent = metadataRows.map(row =>
+      row.map(field => `"${field}"`).join(',')
+    ).join('\n');
+  
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+  
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute(
+      'download',
+      `${experiment.Name.replace(/\s+/g, '_')}_metadata.csv`
+    );
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="experiment-page">
       <h1 className="experiment-title">{experiment.Name}</h1>
@@ -129,11 +172,20 @@ const Experiment = () => {
 
       {activeTab === 'Download' && (
         <div className="download-section">
-          <p>Raw data files can be downloaded below:</p>
-          <a href={`/api/downloads/experiment/${expId}`} className="btn-download">
-            Download Raw Files
+        <p>Download files related to this experiment:</p>
+        <div className="download-buttons">
+          <a
+            href={`/api/downloads/experiment/${expId}`}
+            className="btn-download"
+            download
+          >
+            Download Count Matrix (.rds)
           </a>
+          <button onClick={downloadMetadataCSV} className="btn-download">
+            Download Metadata (.csv)
+          </button>
         </div>
+      </div>
       )}
     </div>
   );
