@@ -14,8 +14,12 @@ const Experiments = () => {
   return (
     <div className="experiments-page">
       <h1>Experiments</h1>
-      <ExperimentFilter onFilter={handleFilter} />
-      <ExperimentList filters={filters} />
+      <div className="filters-wrapper">
+        <ExperimentFilter onFilter={handleFilter} />
+      </div>
+      <div className="table-wrapper">
+        <ExperimentList filters={filters} />
+      </div>
     </div>
   );
 };
