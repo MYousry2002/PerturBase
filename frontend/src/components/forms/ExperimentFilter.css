@@ -1,14 +1,16 @@
 .experiment-filter {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   background-color: #ffffff;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
+/* Input + select styling */
 .filter-group {
   display: flex;
   flex-direction: column;
@@ -34,23 +36,12 @@
 }
 
 .filter-group select {
-  padding: 6px 10px;
-  height: 36px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  background-color: #fafafa;
-  box-sizing: border-box;
-  padding-right: 30px;
-
+  appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg fill='gray' viewBox='0 0 24 24' width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 14px;
-
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  padding-right: 30px;
 }
 
 .filter-group input:focus,
@@ -60,22 +51,83 @@
   background-color: #fff;
 }
 
-.filter-actions {
+/* Toggle button styling */
+.toggle-wrapper {
+  grid-column: 1 / -1;
   display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  grid-column: span 2;
-  margin-top: 5px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.toggle-btn {
+  background: none;
+  color: #007bff;
+  border: none;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.3s ease;
+}
+
+.toggle-btn.active {
+  color: #0056b3;
+}
+
+.arrow-container {
+  line-height: 1;
+}
+
+.arrow-icon {
+  transition: transform 0.2s ease;
+}
+
+.arrow-icon.rotate {
+  transform: rotate(180deg);
+}
+
+/* Advanced section layout */
+.advanced-section {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Buttons centered under all filters */
+.filter-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 20px;
 }
 
 .btn-filter,
 .btn-reset {
-  padding: 7px 16px;
+  padding: 8px 20px;
   font-size: 0.85rem;
   font-weight: 500;
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .btn-filter {
@@ -96,9 +148,13 @@
   background-color: #5a6268;
 }
 
-/* Stack layout on small screens */
+/* Responsive stacking on mobile */
 @media (max-width: 768px) {
   .experiment-filter {
+    grid-template-columns: 1fr;
+  }
+
+  .advanced-section {
     grid-template-columns: 1fr;
   }
 

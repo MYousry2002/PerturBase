@@ -12,6 +12,11 @@ const ExperimentFilter = ({ onFilter }) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [source, setSource] = useState('');
+  const [showAdvanced, setShowAdvanced] = useState(false);
+
+  const toggleAdvanced = () => {
+    setShowAdvanced(prev => !prev);
+  };
 
   const [treatmentOptions, setTreatmentOptions] = useState([]);
   const [sourceOptions, setSourceOptions] = useState([]);
@@ -50,11 +55,13 @@ const ExperimentFilter = ({ onFilter }) => {
     setStartDate('');
     setEndDate('');
     setSource('');
+    setShowAdvanced(false);
     onFilter({});
   };
 
   return (
     <form className="experiment-filter" onSubmit={handleSubmit}>
+      {/* Primary Filters */}
       <div className="filter-group">
         <label htmlFor="keyword">Keyword</label>
         <input
@@ -83,22 +90,6 @@ const ExperimentFilter = ({ onFilter }) => {
       </div>
 
       <div className="filter-group">
-      <label htmlFor="publication">Publication</label>
-      <input
-        id="publication"
-        list="publication-options"
-        placeholder="Enter DOI or Unpublished"
-        value={publication}
-        onChange={(e) => setPublication(e.target.value)}
-      />
-      <datalist id="publication-options">
-        {publicationOptions.map((val, idx) => (
-          <option key={idx} value={val} />
-        ))}
-      </datalist>
-    </div>
-
-      <div className="filter-group">
         <label htmlFor="type">Experiment Type</label>
         <select
           id="type"
@@ -113,52 +104,93 @@ const ExperimentFilter = ({ onFilter }) => {
       </div>
 
       <div className="filter-group">
-        <label htmlFor="source">Source</label>
-        <input
-          id="source"
-          list="source-options"
-          placeholder="Choose or type"
-          value={source}
-          onChange={(e) => setSource(e.target.value)}
-        />
-        <datalist id="source-options">
-          {sourceOptions.map((val, idx) => (
-            <option key={idx} value={val} />
-          ))}
-        </datalist>
-      </div>
-
-      <div className="filter-group">
         <label htmlFor="minCells">Min Cells</label>
         <input
           id="minCells"
           type="number"
-          placeholder="e.g., 1000"
+          placeholder="e.g., 10000"
           value={minCells}
           onChange={(e) => setMinCells(e.target.value)}
         />
       </div>
 
-      <div className="filter-group">
-        <label htmlFor="startDate">Start Date</label>
-        <input
-          id="startDate"
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-      </div>
+      {showAdvanced && (
+        <div className="advanced-section">
+          <div className="filter-group">
+            <label htmlFor="publication">Publication</label>
+            <input
+              id="publication"
+              list="publication-options"
+              placeholder="Enter DOI or Unpublished"
+              value={publication}
+              onChange={(e) => setPublication(e.target.value)}
+            />
+            <datalist id="publication-options">
+              {publicationOptions.map((val, idx) => (
+                <option key={idx} value={val} />
+              ))}
+            </datalist>
+          </div>
 
-      <div className="filter-group">
-        <label htmlFor="endDate">End Date</label>
-        <input
-          id="endDate"
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-      </div>
+          <div className="filter-group">
+            <label htmlFor="source">Source</label>
+            <input
+              id="source"
+              list="source-options"
+              placeholder="Choose or type"
+              value={source}
+              onChange={(e) => setSource(e.target.value)}
+            />
+            <datalist id="source-options">
+              {sourceOptions.map((val, idx) => (
+                <option key={idx} value={val} />
+              ))}
+            </datalist>
+          </div>
 
+          <div className="filter-group">
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              id="startDate"
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+          </div>
+
+          <div className="filter-group">
+            <label htmlFor="endDate">End Date</label>
+            <input
+              id="endDate"
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="toggle-wrapper">
+        <button
+          type="button"
+          onClick={toggleAdvanced}
+          className={`toggle-btn ${showAdvanced ? 'active' : ''}`}
+        >
+          {showAdvanced ? 'Hide Advanced Filters' : 'Show Advanced Filters'}
+          <div className="arrow-container">
+            <svg
+              className={`arrow-icon ${showAdvanced ? 'rotate' : ''}`}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+            >
+              <path d="M7 10l5 5 5-5z" fill="currentColor" />
+            </svg>
+          </div>
+        </button>
+      </div>
+      
       <div className="filter-actions">
         <button type="submit" className="btn-filter">Apply Filters</button>
         <button type="button" className="btn-reset" onClick={handleReset}>Reset</button>
