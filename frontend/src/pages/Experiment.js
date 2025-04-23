@@ -98,6 +98,31 @@ const Experiment = () => {
     document.body.removeChild(link);
   };
 
+  const downloadRDS = async () => {
+    try {
+      const response = await api.get(`/api/download/rds/${expId}`, {
+        responseType: 'blob'
+      });
+      const url = URL.createObjectURL(response.data);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute(
+        'download',
+        `${experiment.Name.replace(/\s+/g, '_')}_count_matrix.rds`
+      );
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to download RDS:", err);
+      alert("Failed to download the .rds file.");
+    }
+  };
+
+  if (loading || !experiment) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <div className="experiment-page">
       <h1 className="experiment-title">{experiment.Name}</h1>
@@ -174,20 +199,16 @@ const Experiment = () => {
 
       {activeTab === 'Download' && (
         <div className="download-section">
-        <p>Download files related to this experiment:</p>
-        <div className="download-buttons">
-          <a
-            href={`/api/downloads/experiment/${expId}`}
-            className="btn-download"
-            download
-          >
-            Download Count Matrix (.rds)
-          </a>
-          <button onClick={downloadMetadataCSV} className="btn-download">
-            Download Metadata (.csv)
-          </button>
+          <p>Download files related to this experiment:</p>
+          <div className="download-buttons">
+            <button onClick={downloadRDS} className="btn-download">
+              Download Count Matrix (.rds)
+            </button>
+            <button onClick={downloadMetadataCSV} className="btn-download">
+              Download Metadata (.csv)
+            </button>
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
