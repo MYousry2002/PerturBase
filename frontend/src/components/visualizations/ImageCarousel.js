@@ -1,16 +1,12 @@
-//  src/components/visualizations/ImageCarousel.js
-
 import React, { useState } from 'react';
 import { Download } from 'lucide-react';
 import './ImageCarousel.css';
 
 const ImageCarousel = ({ imageUrls }) => {
   const [index, setIndex] = useState(0);
-  
-  const basePath = '/students_25/Team10/PerturBase/main';
 
   const validImages = Array.isArray(imageUrls)
-    ? imageUrls.filter(Boolean).map((url) => `${basePath}${url}`)
+    ? imageUrls.filter(Boolean)
     : [];
 
   const handlePrev = () => {
@@ -35,7 +31,7 @@ const ImageCarousel = ({ imageUrls }) => {
             alt={`Slide ${index + 1}`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = `${basePath}/plots/fallback.png`;
+              e.target.src = '/plots/fallback.png';
             }}
           />
           <a

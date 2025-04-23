@@ -37,10 +37,9 @@ const Experiment = () => {
 
   const PlotSection = ({ expId, view }) => {
     const [plotImages, setPlotImages] = useState([]);
-
+  
     useEffect(() => {
-      const normalized = normalizeView(view);
-      api.get(`/api/plots/${expId}/${normalized}`)
+      api.get(`/api/plots/${expId}/${view}`)
         .then(res => {
           setPlotImages(res.data);
         })
@@ -48,7 +47,7 @@ const Experiment = () => {
           setPlotImages([]);
         });
     }, [expId, view]);
-
+  
     return plotImages.length > 0 ? (
       <ImageCarousel imageUrls={plotImages} />
     ) : (
