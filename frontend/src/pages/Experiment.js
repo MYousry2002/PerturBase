@@ -156,7 +156,7 @@ const Experiment = () => {
       {activeTab === 'Visualization' && (
         <div className="visualization-section">
           <aside className="left-sidebar">
-            {['Metrics', 'Umap', 'Top Genes', 'Heatmap'].map(view => (
+            {['Metrics', 'Umap', 'Genes', 'Heatmap'].map(view => (
               <button
                 key={view}
                 className={activeView === view ? 'active' : ''}
