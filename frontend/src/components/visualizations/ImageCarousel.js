@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Download } from 'lucide-react';
 import './ImageCarousel.css';
 
+const isBioed = window.location.hostname === 'bioed-new.bu.edu';
+const base = isBioed ? '/students_25/Team10/PerturBase/main' : '';
+
 const ImageCarousel = ({ imageUrls }) => {
   const [index, setIndex] = useState(0);
 
@@ -27,11 +30,11 @@ const ImageCarousel = ({ imageUrls }) => {
         <button onClick={handlePrev} className="carousel-nav left">&lt;</button>
         <div className="carousel-image-wrapper">
           <img
-            src={validImages[index]}
+            src={`${base}${validImages[index]}`}
             alt={`Slide ${index + 1}`}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = '/plots/fallback.png';
+              e.target.src = `${base}/plots/fallback.png`;
             }}
           />
           <a
