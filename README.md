@@ -171,7 +171,7 @@ cd ..
 python main.py
 ```
 Then open your browser to:  
-`http://localhost:5050/students_25/Team10/PerturBase/main`
+`http://localhost:5000/students_25/Team10/PerturBase/main`
 
 * For production mode:
 ```bash
