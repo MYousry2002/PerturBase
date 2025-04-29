@@ -127,8 +127,6 @@ PERTURBASE/
 git clone https://github.com/MYousry2002/PerturBase.git
 ```
 
-2. Backend setup
-
 ### 2. Backend Setup
 
 On Windows:
