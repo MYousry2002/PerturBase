@@ -72,8 +72,6 @@ PERTURBASE/
 │   │   ├── dashboard.py                 # Endpoints for aggregated stats and dashboard visualizations
 │   │   └── plots.py                     # Endpoints for plot preview/download
 │   ├── scripts/                         # Utility scripts to extract, load, or transform data
-│   │   ├── Fill_Experiments.sql         # Sample inserts (Experiments table)
-│   │   ├── Fill_Channels.sql            # Sample inserts (Channel metadata)
 │   │   ├── Load_Data_SQLs/              # Folder to hold logically split SQLs
 │   │   ├── Meta_to_SQL.py               # Python version of metadata loader
 │   │   ├── MetaData_to_SQL.R            # R-based version for metadata loading
