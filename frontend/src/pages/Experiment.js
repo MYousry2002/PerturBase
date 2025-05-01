@@ -144,8 +144,26 @@ const Experiment = () => {
           <div className="metadata-summary">
             <p><strong>Date:</strong> {experiment.Date}</p>
             <p><strong>Treatment:</strong> {experiment.Treatment}</p>
-            <p><strong>Source:</strong> {experiment.Source}</p>
-            <p><strong>Publication:</strong> {experiment.Publication}</p>
+            <p>
+              <strong>Source:</strong>{' '}
+              {experiment.Source && experiment.Source.toUpperCase() === 'GEO' && experiment.Name.startsWith('GSE') ? (
+                <a
+                  href={`https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=${experiment.Name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {experiment.Source}
+                </a>
+              ) : (
+                experiment.Source
+              )}
+            </p>
+            <p>
+              <strong>Publication:</strong>{' '}
+              <a href={experiment.Publication} target="_blank" rel="noopener noreferrer">
+                {experiment.Publication}
+              </a>
+            </p>
           </div>
 
           <h2>Channel Details</h2>
