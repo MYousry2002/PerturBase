@@ -38,7 +38,7 @@ const ImageCarousel = ({ imageUrls }) => {
             }}
           />
           <a
-            href={validImages[index]}
+            href={`${base}${validImages[index]}`}
             download
             className="carousel-download"
             title="Download image"
