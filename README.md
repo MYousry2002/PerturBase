@@ -4,12 +4,13 @@ PerturBase is a web-based portal for exploring metadata from Perturb-seq experim
 ## ✨ Features
 
 ### 📊 Interactive Dashboard
-High-level visualizations summarizing the dataset:
+High-level visualizations summarizing the dataset:-
 * Cell counts by experiment
 * Feature distributions
 * Mitochondrial/ribosomal content
 * Experiment type breakdown
-* ...and more!
+* Interactive metadata visualizations
+* Much more is coming soon!!!!
 
 ### 📁 Experiment Explorer
 * Browse all available Perturb-seq experiments.
@@ -21,7 +22,7 @@ High-level visualizations summarizing the dataset:
 Each experiment includes:
 * **Metadata Tab**: Overview of experiment + channel summaries.
 * **Visualization Tab**: Metrics, UMAP, top genes, and heatmaps displayed via a carousel with download options.
-* **Download Tab**: Download raw .rds files and metadata CSVs.
+* **Download Tab**: Download raw .rds files and metadata CSVs. Also, you can download the metadata.
 
 ## 🚀 Usage: 
 
